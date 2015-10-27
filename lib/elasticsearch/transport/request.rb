@@ -5,7 +5,7 @@ module Faraday
     def endpoint
       URI.parse(
         self.params.any? ?
-          "#{self.path}?#{params.map { |key, value| "#{key}=#{value}" }.join("&")}" :
+          "#{self.path}?#{Faraday::Utils::ParamsHash[params].to_query}" :
           self.path
       )
     end
