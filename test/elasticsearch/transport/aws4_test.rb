@@ -3,7 +3,7 @@ require "elasticsearch"
 
 describe Elasticsearch::Transport::AWS4 do
   before do
-    Timecop.freeze(Time.local(2015, 01, 01, 12, 0, 0))
+    Timecop.freeze(Time.utc(2015, 01, 01, 12, 0, 0))
 
     @client = Elasticsearch::Client.new(
       url:             "https://search-XYZ-ABCDEFGHIJKLMMNOPQRTUVWXYZ.us-east-1.es.amazonaws.com",
@@ -27,7 +27,7 @@ describe Elasticsearch::Transport::AWS4 do
         "Host"                 => "search-XYZ-ABCDEFGHIJKLMMNOPQRTUVWXYZ.us-east-1.es.amazonaws.com",
         "User-Agent"           => "Faraday v0.9.2",
         "X-Amz-Content-Sha256" => /.+/,
-        "X-Amz-Date"           => "20150101T110000Z"
+        "X-Amz-Date"           => "20150101T120000Z"
       }
     ).to_return(status: 200, body: "", headers: {})
   end
