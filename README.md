@@ -1,5 +1,7 @@
 # Signature Version 4 Elasticsearch Transport for Amazon Elasticsearch Service
 
+[![Build Status](https://travis-ci.org/castle/elasticsearch-transport-aws4.svg)](https://travis-ci.org/castle/elasticsearch-transport-aws4)
+
 `elasticsearch-transport-aws4` signs [Amazon Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/) requests using [Signature Version 4](http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
 
 ## Installation
