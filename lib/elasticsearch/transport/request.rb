@@ -4,9 +4,11 @@ module Faraday
   class Request
     def endpoint
       URI.parse(
-        self.params.any? ?
-          "#{self.path}?#{Faraday::Utils::ParamsHash[params].to_query}" :
-          self.path
+        (
+          self.params.any? ?
+            "#{self.path}?#{Faraday::Utils::ParamsHash[params].to_query}" :
+            self.path
+        ).gsub(/([^:])\/{2,}/, '\1/')
       )
     end
 
