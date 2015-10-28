@@ -9,7 +9,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "elasticsearch-transport-aws4", "~> 0.1.1"
+gem "elasticsearch-transport-aws4", "~> 0.1.2"
 ```
 
 And then execute:

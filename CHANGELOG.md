@@ -1,3 +1,7 @@
+### 0.1.2
+
+ * Added excess slashes stripping from signed URL.
+
 ### 0.1.1
 
  * Fixed signature for queries with URL params.
