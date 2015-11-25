@@ -1,3 +1,7 @@
+### 0.2.0
+
+ * Relaxed `aws-sdk` dependency to more generic `~> 2.1`.
+
 ### 0.1.2
 
  * Added excess slashes stripping from signed URL.
