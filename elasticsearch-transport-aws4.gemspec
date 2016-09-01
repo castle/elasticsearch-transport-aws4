@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "elasticsearch-transport-aws4"
-  spec.version       = "0.2.0"
+  spec.version       = "2.0.0"
   spec.authors       = ["Filip Tepper"]
   spec.email         = ["filip@tepper.pl"]
 
@@ -16,10 +16,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "aws-sdk",                   "~> 2.1"
-  spec.add_dependency "elasticsearch-transport",   "~> 1.0.14"
+  spec.add_dependency "elasticsearch-transport",   "~> 2.0"
 
   spec.add_development_dependency "bundler",       "~> 1.10"
-  spec.add_development_dependency "elasticsearch", "~> 1.0.14"
+  spec.add_development_dependency "elasticsearch", "~> 2.0"
   spec.add_development_dependency "minitest",      "~> 5.8.2"
   spec.add_development_dependency "rake",          "~> 10.0"
   spec.add_development_dependency "timecop",       "~> 0.8.0"
