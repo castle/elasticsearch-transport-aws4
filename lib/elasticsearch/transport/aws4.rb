@@ -6,6 +6,11 @@ require "aws-sdk-core/signers/v4"
 require "aws-sdk-core/credentials"
 require "seahorse/util"
 
+require "aws-sdk-core/checksums"
+require "aws-sdk-core/endpoint_provider"
+require "aws-sdk-core/json"
+require "aws-sdk-core/partitions"
+
 module Elasticsearch
   module Transport
     class AWS4 < Elasticsearch::Transport::Transport::HTTP::Faraday
