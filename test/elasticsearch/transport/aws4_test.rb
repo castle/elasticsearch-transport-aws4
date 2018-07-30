@@ -25,7 +25,7 @@ describe Elasticsearch::Transport::AWS4 do
         "Authorization"        => /.+/,
         "Content-Type"         => "application/x-www-form-urlencoded",
         "Host"                 => "search-XYZ-ABCDEFGHIJKLMMNOPQRTUVWXYZ.us-east-1.es.amazonaws.com",
-        "User-Agent"           => "Faraday v0.9.2",
+        "User-Agent"           => /\AFaraday v.*\z/,
         "X-Amz-Content-Sha256" => /.+/,
         "X-Amz-Date"           => "20150101T120000Z"
       }
