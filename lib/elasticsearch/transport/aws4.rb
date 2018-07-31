@@ -2,28 +2,27 @@ require "elasticsearch/transport/transport/serializer/multi_json"
 require "elasticsearch/transport/transport/base"
 require "elasticsearch/transport/transport/http/faraday"
 require "elasticsearch/transport/request"
-require "aws-sdk-core/signers/v4"
-require "aws-sdk-core/credentials"
-require "seahorse/util"
-
-require "aws-sdk-core/checksums"
-require "aws-sdk-core/endpoint_provider"
-require "aws-sdk-core/json"
-require "aws-sdk-core/partitions"
+require "aws-sigv4"
 
 module Elasticsearch
   module Transport
     class AWS4 < Elasticsearch::Transport::Transport::HTTP::Faraday
+      HEADERS = %w[
+        host
+        x-amz-date
+        x-amz-security-token
+        x-amz-content-sha256
+        authorization
+      ].freeze
+
       def initialize(arguments = {}, &block)
         super arguments
 
-        @signer = Aws::Signers::V4.new(
-          Aws::Credentials.new(
-            arguments[:options][:aws4][:key],
-            arguments[:options][:aws4][:secret]
-          ),
-          "es",
-          arguments[:options][:aws4][:region]
+        @signer = Aws::Sigv4::Signer.new(
+          access_key_id: arguments[:options][:aws4][:key],
+          secret_access_key: arguments[:options][:aws4][:secret],
+          service: "es",
+          region: arguments[:options][:aws4][:region]
         )
       end
 
@@ -35,7 +34,16 @@ module Elasticsearch
             (body ? __convert_to_json(body) : ""),
             {}
           ) do |request|
-            @signer.sign(request)
+            signature = @signer.sign_request(
+              url: url,
+              http_method: request.method,
+              headers: request.headers,
+              body: request.body
+            )
+
+            HEADERS.each do |header|
+              request.headers[header] = signature.headers[header] || ''
+            end
           end
         end
       end
