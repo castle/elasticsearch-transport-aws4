@@ -1,8 +1,8 @@
-require "elasticsearch/transport/transport/serializer/multi_json"
-require "elasticsearch/transport/transport/base"
-require "elasticsearch/transport/transport/http/faraday"
-require "elasticsearch/transport/request"
-require "aws-sigv4"
+require 'elasticsearch/transport/transport/serializer/multi_json'
+require 'elasticsearch/transport/transport/base'
+require 'elasticsearch/transport/transport/http/faraday'
+require 'elasticsearch/transport/request'
+require 'aws-sigv4'
 
 module Elasticsearch
   module Transport
@@ -21,7 +21,7 @@ module Elasticsearch
         @signer = Aws::Sigv4::Signer.new(
           access_key_id: arguments[:options][:aws4][:key],
           secret_access_key: arguments[:options][:aws4][:secret],
-          service: "es",
+          service: 'es',
           region: arguments[:options][:aws4][:region]
         )
       end
