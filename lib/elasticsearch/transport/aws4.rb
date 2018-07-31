@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require 'elasticsearch/transport/transport/serializer/multi_json'
 require 'elasticsearch/transport/transport/base'
 require 'elasticsearch/transport/transport/http/faraday'
 require 'elasticsearch/transport/request'
 require 'aws-sigv4'
 
+# Signature Version 4 Elasticsearch Transport for AWS Elasticsearch Service
 module Elasticsearch
   module Transport
     class AWS4 < Elasticsearch::Transport::Transport::HTTP::Faraday
@@ -28,22 +31,16 @@ module Elasticsearch
 
       def perform_request(method, path, params = {}, body = nil)
         Elasticsearch::Transport::Transport::Base.instance_method(:perform_request).bind(self).call(method, path, params, body) do |connection, url|
-          connection.connection.run_request(
-            method.downcase.to_sym,
+          connection.connection.run_request(method.downcase.to_sym,
             url,
-            (body ? __convert_to_json(body) : ""),
+            (body ? __convert_to_json(body) : ''),
             {}
           ) do |request|
             signature = @signer.sign_request(
-              url: url,
-              http_method: request.method,
-              headers: request.headers,
-              body: request.body
+              url: url, http_method: request.method, headers: request.headers, body: request.body
             )
 
-            HEADERS.each do |header|
-              request.headers[header] = signature.headers[header] || ''
-            end
+            HEADERS.each { |header| request.headers[header] = signature.headers[header] || '' }
           end
         end
       end

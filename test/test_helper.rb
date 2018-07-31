@@ -1,10 +1,12 @@
-$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-require "elasticsearch/transport/aws4"
+# frozen_string_literal: true
 
-require "minitest/spec"
-require "minitest/autorun"
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'elasticsearch/transport/aws4'
 
-require "timecop"
-require "webmock/minitest"
+require 'minitest/spec'
+require 'minitest/autorun'
+
+require 'timecop'
+require 'webmock/minitest'
 
 WebMock.disable_net_connect!
