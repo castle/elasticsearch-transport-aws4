@@ -1,0 +1,52 @@
+PATH
+  remote: .
+  specs:
+    elasticsearch-transport-aws4 (2.0.0)
+      aws-sigv4 (~> 1.0)
+      elasticsearch-transport (~> 2.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
+    aws-sigv4 (1.0.3)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
+    elasticsearch (2.0.2)
+      elasticsearch-api (= 2.0.2)
+      elasticsearch-transport (= 2.0.2)
+    elasticsearch-api (2.0.2)
+      multi_json
+    elasticsearch-transport (2.0.2)
+      faraday
+      multi_json
+    faraday (0.15.2)
+      multipart-post (>= 1.2, < 3)
+    hashdiff (0.3.7)
+    minitest (5.8.5)
+    multi_json (1.13.1)
+    multipart-post (2.0.0)
+    public_suffix (3.0.2)
+    rake (10.5.0)
+    safe_yaml (1.0.4)
+    timecop (0.8.1)
+    webmock (1.22.6)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.10)
+  elasticsearch (~> 2.0)
+  elasticsearch-transport-aws4!
+  minitest (~> 5.8.2)
+  rake (~> 10.0)
+  timecop (~> 0.8.0)
+  webmock (~> 1.22.1)
+
+BUNDLED WITH
+   1.16.3
