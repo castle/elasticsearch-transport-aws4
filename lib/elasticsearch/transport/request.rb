@@ -2,17 +2,17 @@
 
 require 'faraday'
 
-# Monkey patching Faraday to avoid issues with excess slashes
 module Faraday
+  # Monkey patching Faraday to avoid issues with excess slashes
   class Request
     def endpoint
-      URI.parse(
-        (
-          params.any? ?
-            "#{path}?#{Faraday::Utils::ParamsHash[params].to_query}" :
-            path
-        ).gsub(%r{([^:])\/{2,}}, '\1/')
-      )
+      uri = if params.any?
+        "#{path}?#{Faraday::Utils::ParamsHash[params].to_query}"
+      else
+        path
+      end
+
+      URI.parse(uri.gsub(%r{([^:])\/{2,}}, '\1/'))
     end
 
     def http_method

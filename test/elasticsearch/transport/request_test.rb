@@ -10,7 +10,7 @@ describe Faraday::Request do
         :get, '/it//is', {}
       )
 
-      @request.endpoint.to_s.must_equal("/it/is")
+      @request.endpoint.to_s.must_equal('/it/is')
     end
   end
 end

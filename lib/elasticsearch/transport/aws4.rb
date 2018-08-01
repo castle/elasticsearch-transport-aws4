@@ -6,9 +6,9 @@ require 'elasticsearch/transport/transport/http/faraday'
 require 'elasticsearch/transport/request'
 require 'aws-sigv4'
 
-# Signature Version 4 Elasticsearch Transport for AWS Elasticsearch Service
 module Elasticsearch
   module Transport
+    # Signature Version 4 Elasticsearch Transport for AWS Elasticsearch Service
     class AWS4 < Elasticsearch::Transport::Transport::HTTP::Faraday
       HEADERS = %w[
         host
@@ -18,7 +18,7 @@ module Elasticsearch
         authorization
       ].freeze
 
-      def initialize(arguments = {}, &block)
+      def initialize(arguments = {}, &_block)
         super arguments
 
         @signer = Aws::Sigv4::Signer.new(
@@ -30,11 +30,10 @@ module Elasticsearch
       end
 
       def perform_request(method, path, params = {}, body = nil)
-        Elasticsearch::Transport::Transport::Base.instance_method(:perform_request).bind(self).call(method, path, params, body) do |connection, url|
-          connection.connection.run_request(method.downcase.to_sym,
-            url,
-            (body ? __convert_to_json(body) : ''),
-            {}
+        Elasticsearch::Transport::Transport::Base.instance_method(:perform_request)
+          .bind(self).call(method, path, params, body) do |connection, url|
+          connection.connection.run_request(
+            method.downcase.to_sym, url, (body ? __convert_to_json(body) : ''), {}
           ) do |request|
             signature = @signer.sign_request(
               url: url, http_method: request.method, headers: request.headers, body: request.body
