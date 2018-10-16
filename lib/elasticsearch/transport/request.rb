@@ -1,19 +1,22 @@
-require "faraday"
+# frozen_string_literal: true
+
+require 'faraday'
 
 module Faraday
+  # Monkey patching Faraday to avoid issues with excess slashes
   class Request
     def endpoint
-      URI.parse(
-        (
-          self.params.any? ?
-            "#{self.path}?#{Faraday::Utils::ParamsHash[params].to_query}" :
-            self.path
-        ).gsub(/([^:])\/{2,}/, '\1/')
-      )
+      uri = if params.any?
+        "#{path}?#{Faraday::Utils::ParamsHash[params].to_query}"
+      else
+        path
+      end
+
+      URI.parse(uri.gsub(%r{([^:])\/{2,}}, '\1/'))
     end
 
     def http_method
-      self.method.to_s.upcase
+      method.to_s.upcase
     end
   end
 end
